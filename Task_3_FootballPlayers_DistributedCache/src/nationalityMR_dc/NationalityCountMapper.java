@@ -20,7 +20,8 @@ public class NationalityCountMapper extends Mapper<Object, Text, Text, IntWritab
     protected void setup(Context context) throws IOException, InterruptedException {
     	super.setup(context);
     	URI[] files = context.getCacheFiles();
-    	Path cachePath = new Path(files[0]);   	
+    	Path cachePath = new Path(files[0]);   	    	
+//    	Path[] cachePath = DistributedCache.getLocalCacheFiles(context.getConfiguration());
     	
     	try(BufferedReader reader = new BufferedReader(new FileReader(cachePath.getName()))) {
     		String line = "";

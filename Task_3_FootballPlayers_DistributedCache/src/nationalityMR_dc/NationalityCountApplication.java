@@ -1,6 +1,5 @@
 package nationalityMR_dc;
 
-import java.io.File;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -30,10 +29,11 @@ public class NationalityCountApplication extends Configured implements Tool {
 		}
 
 		Configuration conf = getConf();
+//		DistributedCache.addCacheFile(new URI("/user/maria_dev/NationalityCountDC/DistributedCacheData/champions.csv"), conf);
 		Job job = Job.getInstance(conf, "Nationality count with distributed cache");
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));		
-		job.addCacheFile(new File("/user/maria_dev/NationalityCountDC/DistributedCacheData/champions.csv").toURI());
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));	
+		job.addCacheFile(new Path("/user/maria_dev/NationalityCountDC/DistributedCacheData/champions.csv").toUri());
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		job.setMapperClass(NationalityCountMapper.class);
